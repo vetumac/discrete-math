@@ -3,7 +3,7 @@ import exceptions.{InvalidGaussMatrix, InvalidMatrixException, InvalidSystemOfLi
 object App {
   def main(args: Array[String]): Unit = {
     try {
-      println(SystemOfLinearEquationsMatrix(IOService.getDataFromFile("input.txt")))
+      println(Gauss(SystemOfLinearEquationsMatrix(IOService.getDataFromFile("input.txt"))))
     }
     catch {
       case ex: NumberFormatException => println("Invalid numer format " + ex.getMessage)
