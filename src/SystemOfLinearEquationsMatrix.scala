@@ -1,6 +1,6 @@
 import exceptions.InvalidSystemOfLinearEquationsMatrixException
 
-case class SystemOfLinearEquationsMatrix(val matrix: List[List[Double]]) extends AbstractMatrix(matrix) {
+case class SystemOfLinearEquationsMatrix(matrix: List[List[Double]]) extends AbstractMatrix(matrix) {
 
   checkSystemOfLinearEquationsMatrix(matrix)
 

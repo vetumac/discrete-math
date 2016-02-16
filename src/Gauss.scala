@@ -1,19 +1,25 @@
-import exceptions.InvalidGaussMatrix
+import exceptions.{InvalidGaussMatrixException, NoUniqueSolutionException}
 
-object Gauss extends ((SystemOfLinearEquationsMatrix) => List[List[Double]]) {
+object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
 
-  def apply(sle: SystemOfLinearEquationsMatrix): List[List[Double]] = {
+  def apply(sle: SystemOfLinearEquationsMatrix): List[Double] = {
     checkGaussMatrix(sle)
-
-    val fS = firstStep(sle.matrix)
-    println(fS)
-
-    sle.matrix
+    SquareMatrix(sle.matrix.map(f => f.dropRight(1))).determinant() match {
+      case 0 => throw new NoUniqueSolutionException()
+      case _ =>
+        val fs = firstStep(sle.matrix)
+        println("First Step")
+        println(fs)
+        val ss = secondStep(fs)
+        println("Second Step")
+        println(ss)
+        ss
+    }
   }
 
   def checkGaussMatrix(sle: SystemOfLinearEquationsMatrix): Boolean = {
     sle.matrix.head.head match {
-      case 0 => throw new InvalidGaussMatrix()
+      case 0 => throw new InvalidGaussMatrixException()
       case _ => sle.matrix.size match {
         case 1 => true
         case _ => checkGaussMatrix(SystemOfLinearEquationsMatrix(sle.matrix.tail.map(f => f.tail)))
@@ -34,7 +40,14 @@ object Gauss extends ((SystemOfLinearEquationsMatrix) => List[List[Double]]) {
     }
   }
 
-  def secondStep(sle: List[List[Double]]): List[List[Double]] = {
-    List()
+  def secondStep(sle: List[List[Double]]): List[Double] = {
+    sle.size match {
+      case 1 => sle.head.tail
+      case _ =>
+        val solvs = secondStep(sle.tail.map(f => f.tail))
+        val koefs = sle.head.tail.reverse.tail
+        val solv = sle.head.last - koefs.indices.map(f => koefs(f) * solvs(f)).sum
+        solv :: solvs
+    }
   }
 }
