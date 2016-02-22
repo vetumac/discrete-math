@@ -1,9 +1,9 @@
-import exceptions.{InvalidGaussMatrixException, NoUniqueSolutionException}
+import exceptions.{InvalidGaussMatrixSizeException, NoUniqueSolutionException}
 
 object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
 
   def apply(sle: SystemOfLinearEquationsMatrix): List[Double] = {
-    checkGaussMatrix(sle)
+    checkGaussMatrixSize(sle)
     SquareMatrix(sle.matrix.map(f => f.dropRight(1))).determinant() match {
       case 0 => throw new NoUniqueSolutionException()
       case _ =>
@@ -17,13 +17,10 @@ object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
     }
   }
 
-  def checkGaussMatrix(sle: SystemOfLinearEquationsMatrix): Boolean = {
-    sle.matrix.head.head match {
-      case 0 => throw new InvalidGaussMatrixException()
-      case _ => sle.matrix.size match {
-        case 1 => true
-        case _ => checkGaussMatrix(SystemOfLinearEquationsMatrix(sle.matrix.tail.map(f => f.tail)))
-      }
+  def checkGaussMatrixSize(sle: SystemOfLinearEquationsMatrix): Boolean = {
+    sle.matrix.head.length == sle.matrix.length + 1 && !sle.matrix.find(p => p.length != sle.matrix.head.length).contains() match {
+      case false => throw new InvalidGaussMatrixSizeException()
+      case truse => true
     }
   }
 
