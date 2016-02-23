@@ -12,7 +12,7 @@ object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
         println(fs)
         val ss = secondStep(fs)
         println("Second Step")
-        println(ss)
+        //println(ss)
         ss
     }
   }
@@ -30,7 +30,7 @@ object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
       case 1 => dH :: Nil
       case _ =>
         val dM = dH :: sle.tail.map(f => {
-          f.indices.toList.map(i => f(i) - f(i) * dH(i))
+          f.indices.toList.map(i => f(i) - f.head * dH(i))
         })
         val mM = firstStep(dM.tail.map(f => f.tail))
         dH :: mM.map(f => 0.0 :: f)
