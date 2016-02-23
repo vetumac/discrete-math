@@ -8,19 +8,14 @@ object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
       case 0 => throw new NoUniqueSolutionException()
       case _ =>
         val fs = firstStep(sle.matrix)
-        println("First Step")
-        println(fs)
-        val ss = secondStep(fs)
-        println("Second Step")
-        //println(ss)
-        ss
+        secondStep(fs)
     }
   }
 
   def checkGaussMatrixSize(sle: SystemOfLinearEquationsMatrix): Boolean = {
     sle.matrix.head.length == sle.matrix.length + 1 && !sle.matrix.find(p => p.length != sle.matrix.head.length).contains() match {
       case false => throw new InvalidGaussMatrixSizeException()
-      case truse => true
+      case true => true
     }
   }
 
