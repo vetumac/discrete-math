@@ -1,21 +1,13 @@
-import exceptions.{InvalidGaussMatrixSizeException, NoUniqueSolutionException}
+import exceptions.NoUniqueSolutionException
 
 object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
 
   def apply(sle: SystemOfLinearEquationsMatrix): List[Double] = {
-    checkGaussMatrixSize(sle)
     SquareMatrix(sle.matrix.map(f => f.dropRight(1))).determinant() match {
       case 0 => throw new NoUniqueSolutionException()
       case _ =>
         val fs = firstStep(sle.matrix)
         secondStep(fs)
-    }
-  }
-
-  def checkGaussMatrixSize(sle: SystemOfLinearEquationsMatrix): Boolean = {
-    sle.matrix.head.length == sle.matrix.length + 1 && !sle.matrix.find(p => p.length != sle.matrix.head.length).contains() match {
-      case false => throw new InvalidGaussMatrixSizeException()
-      case true => true
     }
   }
 

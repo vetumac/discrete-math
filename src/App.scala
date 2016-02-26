@@ -3,7 +3,8 @@ import exceptions.{InvalidGaussMatrixSizeException, InvalidMatrixException, Inva
 object App {
   def main(args: Array[String]): Unit = {
     try {
-      println(Gauss(SystemOfLinearEquationsMatrix(IOService.getDataFromFile("input.txt"))))
+      val sle = SystemOfLinearEquationsMatrix(IOService.getDataFromFile("input.txt"))
+      println(Gauss(sle))
     }
     catch {
       case ex: NumberFormatException => println("Invalid numer format " + ex.getMessage)
