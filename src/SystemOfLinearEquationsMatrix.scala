@@ -13,5 +13,4 @@ class SystemOfLinearEquationsMatrix(matrix: List[List[Double]]) extends Abstract
 
 object SystemOfLinearEquationsMatrix {
   def apply(matrix: List[List[Double]]) = new SystemOfLinearEquationsMatrix(matrix)
-
 }

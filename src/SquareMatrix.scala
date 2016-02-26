@@ -2,10 +2,13 @@ import exceptions.InvalidSquareMatrixException
 
 class SquareMatrix(matrix: List[List[Double]]) extends AbstractMatrix(matrix) {
 
+  val matrix1 = matrix
+
   matrix.head.size == matrix.size match {
     case false => throw new InvalidSquareMatrixException()
     case true => ;
   }
+
 
   def determinant: Double = {
     SquareMatrix.determinant(matrix)
