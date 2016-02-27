@@ -3,7 +3,7 @@ import exceptions.NoUniqueSolutionException
 object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
 
   def apply(sle: SystemOfLinearEquationsMatrix): List[Double] = {
-    SquareMatrix(sle.matrix.map(f => f.dropRight(1))).determinant() match {
+    SquareMatrix(sle.matrix.map(f => f.dropRight(1))).determinant match {
       case 0 => throw new NoUniqueSolutionException()
       case _ =>
         val fs = firstStep(sle.matrix)

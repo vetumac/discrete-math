@@ -1,14 +1,11 @@
 import exceptions.InvalidSquareMatrixException
 
-class SquareMatrix(matrix: List[List[Double]]) extends AbstractMatrix(matrix) {
+class SquareMatrix(mtrx: List[List[Double]]) extends AbstractMatrix(mtrx) {
 
-  val matrix1 = matrix
-
-  matrix.head.size == matrix.size match {
+  SquareMatrix.checkMatrix(matrix) match {
     case false => throw new InvalidSquareMatrixException()
     case true => ;
   }
-
 
   def determinant: Double = {
     SquareMatrix.determinant(matrix)
@@ -22,6 +19,9 @@ class SquareMatrix(matrix: List[List[Double]]) extends AbstractMatrix(matrix) {
 object SquareMatrix {
 
   def apply(matrix: List[List[Double]]) = new SquareMatrix(matrix)
+
+  def checkMatrix(matrix: List[List[Double]]) =
+    matrix.head.length == matrix.length /* && !matrix.find(p => p.length != matrix.head.length).contains()*/
 
   def determinant(matrix: List[List[Double]]): Double = {
     matrix.length match {

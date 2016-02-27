@@ -1,6 +1,8 @@
 import exceptions.InvalidMatrixException
 
-abstract class AbstractMatrix(matrix: List[List[Double]]) {
+abstract class AbstractMatrix(mtrx: List[List[Double]]) {
+
+  val matrix = mtrx
 
   checkMatrix match {
     case true => ;
