@@ -1,6 +1,6 @@
 import exceptions.NoUniqueSolutionException
 
-object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
+object Gauss {
 
   def apply(sle: SystemOfLinearEquationsMatrix): List[Double] = {
     SquareMatrix(sle.matrix.map(f => f.dropRight(1))).determinant match {
@@ -11,7 +11,7 @@ object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
     }
   }
 
-  def firstStep(sle: List[List[Double]]): List[List[Double]] = {
+  private def firstStep(sle: List[List[Double]]): List[List[Double]] = {
     val dH = sle.head.map(f => f / sle.head.head)
     sle.size match {
       case 1 => dH :: Nil
@@ -24,7 +24,7 @@ object Gauss extends ((SystemOfLinearEquationsMatrix) => List[Double]) {
     }
   }
 
-  def secondStep(sle: List[List[Double]]): List[Double] = {
+  private def secondStep(sle: List[List[Double]]): List[Double] = {
     sle.size match {
       case 1 => sle.head.tail
       case _ =>
