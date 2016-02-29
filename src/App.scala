@@ -5,7 +5,7 @@ object App {
     try {
       val sle = SystemOfLinearEquationsMatrix(IOService.getDataFromFile("input.txt"))
       println(Gauss(sle))
-      //print()
+      println(Holetsky(sle))
     }
     catch {
       case ex: NumberFormatException => println("Invalid numer format " + ex.getMessage)
