@@ -26,7 +26,7 @@ object Holetsky {
     val j = l.last.length
     i > j match {
       case true =>
-        val newL = l.dropRight(1) :+ (l.last :+ ((1 / l(j)(j)) * (a.matrix(i)(j) - List.range(0, j - 1).map(k => l(i)(k) * l(j)(k)).sum)))
+        val newL = l.dropRight(1) :+ (l.last :+ ((1 / l(j)(j)) * (a.matrix(i)(j) - List.range(0, j).map(k => l(i)(k) * l(j)(k)).sum)))
         fillNotDiogonal(a, newL)
       case false => l
     }
@@ -34,7 +34,6 @@ object Holetsky {
 
   private def fillDiogonal(a: SquareMatrix, l: List[List[Double]]): List[List[Double]] = {
     val i = l.length - 1
-    l.dropRight(1) :+ (l.last :+ Math.sqrt(a.matrix(i)(i) - List.range(0, i - 1).map(k => l(i)(k) * l(i)(k)).sum))
+    l.dropRight(1) :+ (l.last :+ Math.sqrt(a.matrix(i)(i) - List.range(0, i).map(k => l(i)(k) * l(i)(k)).sum))
   }
-
 }
