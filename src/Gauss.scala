@@ -29,7 +29,7 @@ object Gauss {
       case 1 => sle.head.tail
       case _ =>
         val solvs = secondStep(sle.tail.map(f => f.tail))
-        val koefs = sle.head.tail.reverse.tail
+        val koefs = sle.head.tail.dropRight(1)
         val solv = sle.head.last - koefs.indices.map(f => koefs(f) * solvs(f)).sum
         solv :: solvs
     }
