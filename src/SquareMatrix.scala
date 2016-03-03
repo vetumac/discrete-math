@@ -21,7 +21,7 @@ object SquareMatrix {
   def apply(matrix: List[List[Double]]) = new SquareMatrix(matrix)
 
   def checkMatrix(matrix: List[List[Double]]) =
-    matrix.head.length == matrix.length /* && !matrix.find(p => p.length != matrix.head.length).contains()*/
+    matrix.head.length == matrix.length
 
   def determinant(matrix: List[List[Double]]): Double = {
     matrix.length match {
@@ -48,6 +48,13 @@ object SquareMatrix {
           case true => false
           case false => isSimetric(matrix.tail.map(f => f.tail))
         }
+    }
+  }
+
+  def transpon(matrix: List[List[Double]]): List[List[Double]] = {
+    matrix.length match {
+      case 1 => matrix
+      case _ => Nil;
     }
   }
 }

@@ -5,11 +5,12 @@ object Holetsky {
   def apply(sle: SystemOfLinearEquationsMatrix): List[Double] = {
     val sq = SquareMatrix(sle.matrix.map(f => f.dropRight(1)))
     sq.isSimetric match {
-      case true => {
-
-        println(firstStep(sq, Nil))
-        println(secondStep(firstStep(sq, Nil)))
-      }
+      case true =>
+        val freeMembers = sle.matrix.map(f => f.last)
+        val l = firstStep(sq, Nil)
+        val transpL = l.map(f => f.reverse).reverse
+        val optimazeMatrix = List.range(0, l.length).map(f => l(f) :+ freeMembers(f))
+        val solves = secondStep(optimazeMatrix.reverse).reverse
       case false => throw new NonSimetricMatrixException()
     }
     List(0.0)
