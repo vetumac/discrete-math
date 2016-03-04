@@ -6,14 +6,13 @@ object Holetsky {
     val sq = SquareMatrix(sle.matrix.map(f => f.dropRight(1)))
     sq.isSimetric match {
       case true =>
-        val freeMembers = sle.matrix.map(f => f.last)
+        val b = sle.matrix.map(f => f.last)
         val l = firstStep(sq, Nil)
-        val transpL = l.map(f => f.reverse).reverse
-        val optimazeMatrix = List.range(0, l.length).map(f => l(f) :+ freeMembers(f))
-        val solves = secondStep(optimazeMatrix.reverse).reverse
+        val y = secondStep(List.range(0, l.length).map(f => l(f) :+ b(f)).reverse).reverse
+        val transpL = SquareMatrix.transpon(l)
+        secondStep(List.range(0, transpL.length).map(f => transpL(f) :+ y(f)))
       case false => throw new NonSimetricMatrixException()
     }
-    List(0.0)
   }
 
   private def firstStep(a: SquareMatrix, l: List[List[Double]]): List[List[Double]] = {
