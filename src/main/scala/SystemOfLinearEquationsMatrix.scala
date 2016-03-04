@@ -17,5 +17,5 @@ object SystemOfLinearEquationsMatrix {
   def apply(matrix: List[List[Double]]) = new SystemOfLinearEquationsMatrix(matrix)
 
   def checkMatrix(matrix: List[List[Double]]) =
-    matrix.head.length == matrix.length + 1 /* && !matrix.find(p => p.length != matrix.head.length).contains()*/
+    matrix.head.length == matrix.length + 1
 }

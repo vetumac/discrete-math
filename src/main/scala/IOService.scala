@@ -5,6 +5,3 @@ object IOService {
     line.split(" ").map(num => num.toDouble).toList
   ).toList
 }
-
-
-
