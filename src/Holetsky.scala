@@ -1,4 +1,4 @@
-import exceptions.NonSimetricMatrixException
+import exceptions.{FakeMatrixForHoletskiMetjod, NonSimetricMatrixException}
 
 object Holetsky {
 
@@ -38,7 +38,14 @@ object Holetsky {
 
   private def fillDiogonal(a: SquareMatrix, l: List[List[Double]]): List[List[Double]] = {
     val i = l.length - 1
-    l.dropRight(1) :+ (l.last :+ Math.sqrt(a.matrix(i)(i) - List.range(0, i).map(k => l(i)(k) * l(i)(k)).sum))
+    l.dropRight(1) :+ (l.last :+ sqrt(a.matrix(i)(i) - List.range(0, i).map(k => l(i)(k) * l(i)(k)).sum))
+  }
+
+  private def sqrt(double: Double): Double = {
+    double < 0 match {
+      case true => throw new FakeMatrixForHoletskiMetjod()
+      case false => Math.sqrt(double)
+    }
   }
 
   private def secondStep(sle: List[List[Double]]): List[Double] = {

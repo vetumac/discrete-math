@@ -17,6 +17,7 @@ object App {
         Holetsky(sle).foreach(f => print(f + " "))
       } catch {
         case ex: NonSimetricMatrixException => println("Not simetric matrix. Holetsky Method not avalible")
+        case ex: FakeMatrixForHoletskiMetjod => println("Fake matrix for Holetsky Method")
       }
     }
     catch {
