@@ -6,6 +6,10 @@ class SystemOfLinearEquationsMatrix(mtrx: List[List[Double]]) extends AbstractMa
     case false => throw new InvalidSystemOfLinearEquationsMatrixException()
     case true => ;
   }
+
+  override def toString = {
+    mtrx.foldLeft("")((a, c) => a + c.foldLeft("")((aa, cc) => aa + cc + " ") + "\n")
+  }
 }
 
 object SystemOfLinearEquationsMatrix {

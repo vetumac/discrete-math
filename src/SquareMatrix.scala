@@ -15,8 +15,8 @@ class SquareMatrix(mtrx: List[List[Double]]) extends AbstractMatrix(mtrx) {
     SquareMatrix.isSimetric(matrix)
   }
 
-  def transpon: List[List[Double]] = {
-    SquareMatrix.transpon(matrix)
+  def transpon: SquareMatrix = {
+    SquareMatrix(SquareMatrix.transpon(matrix))
   }
 }
 
