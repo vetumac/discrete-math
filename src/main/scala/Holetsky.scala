@@ -23,14 +23,14 @@ object Holetsky {
   }
 
   private def addZeros(matrix: List[List[Double]]): List[List[Double]] =
-    matrix.map(f => f :+ 0.0) :+ List()
+    matrix.map(f => f :+ 0.0) :+ List[Double]()
 
   private def fillNotDiogonal(a: SquareMatrix, l: List[List[Double]]): List[List[Double]] = {
     val i = l.length - 1
     val j = l.last.length
     i > j match {
       case true =>
-        val newL = l.dropRight(1) :+ (l.last :+ ((1 / l(j)(j)) * (a.matrix(i)(j) - List.range(0, j).map(k => l(i)(k) * l(j)(k)).sum)))
+        val newL = l.dropRight(1) :+ (l.last :+ ((1 / l(j)(j)) * (a.matrix(i)(j) - List.range(0, j).foldLeft(List[Double]())((a, k) => a :+ l(i)(k) * l(j)(k)).sum)))
         fillNotDiogonal(a, newL)
       case false => l
     }
@@ -38,7 +38,7 @@ object Holetsky {
 
   private def fillDiogonal(a: SquareMatrix, l: List[List[Double]]): List[List[Double]] = {
     val i = l.length - 1
-    l.dropRight(1) :+ (l.last :+ sqrt(a.matrix(i)(i) - List.range(0, i).map(k => l(i)(k) * l(i)(k)).sum))
+    l.dropRight(1) :+ (l.last :+ sqrt(a.matrix(i)(i) - List.range(0, i).foldLeft(List[Double]())((a, k) => a :+ l(i)(k) * l(i)(k)).sum))
   }
 
   private def sqrt(double: Double): Double = {

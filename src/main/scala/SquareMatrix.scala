@@ -56,8 +56,8 @@ object SquareMatrix {
   }
 
   def transpon(matrix: List[List[Double]]): List[List[Double]] = {
-    List.range(0, matrix.length).map(i => {
-      List.range(0, matrix.length).map(j => matrix(j)(i))
+    List.range(0, matrix.length).foldLeft(List[List[Double]]())((a, i) => {
+      a :+ List.range(0, matrix.length).foldLeft(List[Double]())((a, j) => a :+ matrix(j)(i))
     })
   }
 }
