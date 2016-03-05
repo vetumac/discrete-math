@@ -30,7 +30,7 @@ object Holetsky {
     val j = l.last.length
     i > j match {
       case true =>
-        val newL = l.dropRight(1) :+ (l.last :+ ((1 / l(j)(j)) * (a.matrix(i)(j) - List.range(0, j).foldLeft(List[Double]())((a, k) => a :+ l(i)(k) * l(j)(k)).sum)))
+        val newL = l.dropRight(1) :+ (l.last :+ (a.matrix(i)(j) - List.range(0, j).foldLeft(List[Double]())((a, k) => a :+ l(i)(k) * l(j)(k)).sum) / l(j)(j))
         fillNotDiogonal(a, newL)
       case false => l
     }
