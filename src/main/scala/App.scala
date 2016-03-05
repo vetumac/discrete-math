@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException
+
 import exceptions._
 
 object App {
@@ -25,6 +27,7 @@ object App {
       case ex: InvalidMatrixException => println("Invalid matrix dimensions")
       case ex: InvalidSystemOfLinearEquationsMatrixException => println("Invalid System of Linear Equation Matrix")
       case ex: NoUniqueSolutionException => println("No Unique Solution")
+      case ex: FileNotFoundException => println("File input.txt not found")
     }
   }
 }
