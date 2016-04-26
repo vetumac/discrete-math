@@ -1,3 +1,5 @@
+package equations
+
 import exceptions.InvalidSystemOfLinearEquationsMatrixException
 
 class SystemOfLinearEquationsMatrix(mtrx: List[List[Double]]) extends AbstractMatrix(mtrx) {

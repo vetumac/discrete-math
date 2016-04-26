@@ -1,3 +1,5 @@
+package equations
+
 import exceptions.NoUniqueSolutionException
 
 object Gauss {

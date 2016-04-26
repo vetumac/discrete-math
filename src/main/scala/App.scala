@@ -1,11 +1,18 @@
 import java.io.FileNotFoundException
 
+import equations.{Gauss, Holetsky, SystemOfLinearEquationsMatrix}
 import exceptions._
 
 object App {
   def main(args: Array[String]): Unit = {
+    args(0) match {
+      case "-e" => equation()
+    }
+  }
+
+  def equation() = {
     try {
-      val sle = SystemOfLinearEquationsMatrix(IOService.getDataFromFile("input.txt"))
+      val sle = SystemOfLinearEquationsMatrix(IOService.getDataFromFile("equation.txt"))
       println("Input matrix:")
       println(sle)
       try {
@@ -27,7 +34,12 @@ object App {
       case ex: InvalidMatrixException => println("Invalid matrix dimensions")
       case ex: InvalidSystemOfLinearEquationsMatrixException => println("Invalid System of Linear Equation Matrix")
       case ex: NoUniqueSolutionException => println("No Unique Solution")
-      case ex: FileNotFoundException => println("File input.txt not found")
+      case ex: FileNotFoundException => println("File equation.txt not found")
     }
   }
+
+  def diff() = {
+
+  }
+
 }

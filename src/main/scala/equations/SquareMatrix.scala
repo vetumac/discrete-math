@@ -1,3 +1,5 @@
+package equations
+
 import exceptions.InvalidSquareMatrixException
 
 class SquareMatrix(mtrx: List[List[Double]]) extends AbstractMatrix(mtrx) {

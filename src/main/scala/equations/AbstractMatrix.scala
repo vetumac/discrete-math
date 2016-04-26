@@ -1,3 +1,5 @@
+package equations
+
 import exceptions.InvalidMatrixException
 
 abstract class AbstractMatrix(mtrx: List[List[Double]]) {
