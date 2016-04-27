@@ -1,6 +1,6 @@
-package equations
+package by.bsuir.dm.equations
 
-import exceptions.InvalidSystemOfLinearEquationsMatrixException
+import by.bsuir.dm.exceptions.InvalidSystemOfLinearEquationsMatrixException
 
 class SystemOfLinearEquationsMatrix(mtrx: List[List[Double]]) extends AbstractMatrix(mtrx) {
 

@@ -1,6 +1,6 @@
-package equations
+package by.bsuir.dm.equations
 
-import exceptions.InvalidMatrixException
+import by.bsuir.dm.exceptions.InvalidMatrixException
 
 abstract class AbstractMatrix(mtrx: List[List[Double]]) {
 

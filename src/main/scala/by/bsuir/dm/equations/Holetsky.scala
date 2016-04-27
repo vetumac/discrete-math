@@ -1,6 +1,6 @@
-package equations
+package by.bsuir.dm.equations
 
-import exceptions.{FakeMatrixForHoletskiMetjod, NonSimetricMatrixException}
+import by.bsuir.dm.exceptions.{FakeMatrixForHoletskiMetjod, NonSimetricMatrixException}
 
 object Holetsky {
 

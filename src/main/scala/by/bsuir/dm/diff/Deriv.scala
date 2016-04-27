@@ -1,17 +1,16 @@
-package diff
+package by.bsuir.dm.diff
 
 import net.sourceforge.jeval.Evaluator
 
-object Diff {
+object Deriv {
 
   def apply(func: String, a: Double, b: Double, x: Double, n: Int): (Double, Double) = {
     a < x && x < b && n > 3 match {
       case false => throw new IllegalArgumentException
-      case _ =>
+      case true =>
         val evaluator = new Evaluator
         val h = (b - a) / n
         val nearlyPoint = ((x + h / 2 - a) / h).toInt
-
         nearlyPoint match {
           case 0 =>
             val y = (0 to 4).map(i => {
