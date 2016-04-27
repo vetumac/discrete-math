@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException
 
+import diff.Diff
 import equations.{Gauss, Holetsky, SystemOfLinearEquationsMatrix}
 import exceptions._
 
@@ -7,12 +8,13 @@ object App {
   def main(args: Array[String]): Unit = {
     args(0) match {
       case "-e" => equation()
+      case "-d" => diff()
     }
   }
 
   def equation() = {
     try {
-      val sle = SystemOfLinearEquationsMatrix(IOService.getDataFromFile("equation.txt"))
+      val sle = SystemOfLinearEquationsMatrix(IOService.getDoubleDataFromFile("equation.txt"))
       println("Input matrix:")
       println(sle)
       try {
@@ -39,7 +41,21 @@ object App {
   }
 
   def diff() = {
-
+    try {
+      val inputData = IOService.getStringDataFromFile("diff.txt")
+      println("Input data:")
+      inputData.head.foreach(str => print(str + " "))
+      println()
+      val func = inputData.head.head
+      val a = inputData.head(2).toDouble
+      val b = inputData.head(3).toDouble
+      val n = inputData.head(4).toInt
+      println("First and second derivatives: " + Diff(func, a, b, (a + b) / 2, n))
+    }
+    catch {
+      case ex: FileNotFoundException => println("File diff.txt not found")
+      case ex: IllegalArgumentException => println("Illegal input data")
+    }
   }
 
 }
