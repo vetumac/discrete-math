@@ -1,4 +1,6 @@
-import exceptions.NoUniqueSolutionException
+package by.bsuir.dm.equations
+
+import by.bsuir.dm.exceptions.NoUniqueSolutionException
 
 object Gauss {
 

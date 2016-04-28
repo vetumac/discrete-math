@@ -1,4 +1,6 @@
-import exceptions.InvalidSquareMatrixException
+package by.bsuir.dm.equations
+
+import by.bsuir.dm.exceptions.InvalidSquareMatrixException
 
 class SquareMatrix(mtrx: List[List[Double]]) extends AbstractMatrix(mtrx) {
 

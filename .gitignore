@@ -1,0 +1,13 @@
+**/target/
+.idea
+*.iml
+/logs/
+.classpath
+.project
+.settings
+*.log
+*.log.*
+.checkstyle
+/target/
+/data/
+work/
