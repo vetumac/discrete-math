@@ -2,6 +2,7 @@ package by.bsuir.dm
 
 import java.io.FileNotFoundException
 
+import by.bsuir.dm.aprox.Lagrange
 import by.bsuir.dm.diff.{Deriv, Integr}
 import by.bsuir.dm.equations.{Gauss, Holetsky, SystemOfLinearEquationsMatrix}
 import by.bsuir.dm.exceptions._
@@ -11,10 +12,11 @@ object App {
     args(0) match {
       case "-e" => equation()
       case "-d" => diff()
+      case "-a" => aprox()
     }
   }
 
-  def equation() = {
+  private def equation() = {
     try {
       val sle = SystemOfLinearEquationsMatrix(IOService.getDoubleDataFromFile("equation.txt"))
       println("Input matrix:")
@@ -42,7 +44,7 @@ object App {
     }
   }
 
-  def diff() = {
+  private def diff() = {
     try {
       val inputData = IOService.getStringDataFromFile("diff.txt")
       println("Input data:")
@@ -60,6 +62,20 @@ object App {
     catch {
       case ex: FileNotFoundException => println("File diff.txt not found")
       case ex: IllegalArgumentException => println("Illegal input data")
+      case ex: NumberFormatException => println("Invalid number format " + ex.getMessage)
+    }
+  }
+
+  private def aprox() = {
+    try {
+      val points = IOService.getDoubleDataFromFile("aprox.txt").map(row => (row.head, row(1)))
+      println("Input data:")
+      points.foreach(point => println("(x, y) => " + point))
+      println("Output data:")
+      points.foreach(point => println("(x, y) => (" + point._1 + "," + Lagrange(point._1, points) + ")"))
+    } catch {
+      case ex: FileNotFoundException => println("File aprox.txt not found")
+      case ex: IndexOutOfBoundsException => println("Illegal input data")
       case ex: NumberFormatException => println("Invalid number format " + ex.getMessage)
     }
   }
