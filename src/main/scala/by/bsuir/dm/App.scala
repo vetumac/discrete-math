@@ -6,9 +6,6 @@ import by.bsuir.dm.diff.{Deriv, Integr}
 import by.bsuir.dm.equations.{Gauss, Holetsky, SystemOfLinearEquationsMatrix}
 import by.bsuir.dm.exceptions._
 
-/**
-  * Created by vetumac on 28.4.16.
-  */
 object App {
   def main(args: Array[String]): Unit = {
     args(0) match {
@@ -23,21 +20,21 @@ object App {
       println("Input matrix:")
       println(sle)
       try {
-        println("Gauss nethod:")
+        println("Gauss method:")
         Gauss(sle).foreach(f => print(f + " "))
       } catch {
         case ex: InvalidGaussMatrixSizeException => println("System of Linear Equation not resolver by Gauss Method")
       }
       try {
-        println("\nHoletsky nethod:")
+        println("\nHoletsky method:")
         Holetsky(sle).foreach(f => print(f + " "))
       } catch {
-        case ex: NonSimetricMatrixException => println("Not simetric matrix. Holetsky Method not avalible")
+        case ex: NonSimetricMatrixException => println("Not symmetric matrix. Holetsky Method not available")
         case ex: FakeMatrixForHoletskiMetjod => println("Fake matrix for Holetsky Method")
       }
     }
     catch {
-      case ex: NumberFormatException => println("Invalid numer format " + ex.getMessage)
+      case ex: NumberFormatException => println("Invalid number format " + ex.getMessage)
       case ex: InvalidMatrixException => println("Invalid matrix dimensions")
       case ex: InvalidSystemOfLinearEquationsMatrixException => println("Invalid System of Linear Equation Matrix")
       case ex: NoUniqueSolutionException => println("No Unique Solution")
@@ -56,14 +53,14 @@ object App {
       val b = inputData.head(3).toDouble
       val n = inputData.head(4).toInt
       println("First and second derivatives: " + Deriv(derivativeFunc, a, b, (a + b) / 2, n))
-      val intergalFunc = inputData.head(1)
+      val integralFunc = inputData.head(1)
       val d = inputData.head(5).toDouble
-      println("Integral: " + Integr(intergalFunc, a, b, d))
+      println("Integral: " + Integr(integralFunc, a, b, d))
     }
     catch {
       case ex: FileNotFoundException => println("File diff.txt not found")
       case ex: IllegalArgumentException => println("Illegal input data")
-      case ex: NumberFormatException => println("Invalid numer format " + ex.getMessage)
+      case ex: NumberFormatException => println("Invalid number format " + ex.getMessage)
     }
   }
 }

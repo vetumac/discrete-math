@@ -2,9 +2,6 @@ package by.bsuir.dm
 
 import scala.io.Source
 
-/**
-  * Created by vetumac on 28.4.16.
-  */
 object IOService {
 
   def getDoubleDataFromFile(name: String): List[List[Double]] = Source.fromFile(name).getLines().map(line =>
