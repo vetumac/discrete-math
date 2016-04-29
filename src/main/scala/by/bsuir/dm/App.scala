@@ -63,6 +63,7 @@ object App {
     catch {
       case ex: FileNotFoundException => println("File diff.txt not found")
       case ex: IllegalArgumentException => println("Illegal input data")
+      case ex: NumberFormatException => println("Invalid numer format " + ex.getMessage)
     }
   }
 }
