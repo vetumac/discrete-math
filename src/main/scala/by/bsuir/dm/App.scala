@@ -1,14 +1,15 @@
 package by.bsuir.dm
 
 import java.awt.image.BufferedImage
-import java.awt.{Color, Font}
-import java.io.{File, FileNotFoundException}
-import javax.imageio.ImageIO
+import java.io.FileNotFoundException
 
 import by.bsuir.dm.aprox.Lagrange
 import by.bsuir.dm.diff.{Deriv, Integr}
 import by.bsuir.dm.equations.{Gauss, Holetsky, SystemOfLinearEquationsMatrix}
 import by.bsuir.dm.exceptions._
+
+import scalax.chart.XYChart
+import scalax.chart.module.Charting._
 
 object App {
   def main(args: Array[String]): Unit = {
@@ -84,13 +85,13 @@ object App {
         }
         println("(x, y) => (" + point * 0.05 + "," + result + ")")
       })
-      val file = new File("diff.png")
-      val g = img.createGraphics()
-      g.setColor(Color.RED)
-      g.setFont(new Font("Batang", Font.PLAIN, 20))
-      g.drawString("sss", 0, 0)
-      g.dispose()
-      ImageIO.write(img, "png", file)
+      val dataset = Seq((1, 3), (2, 1), (3, 7), (4, 9))
+      val chart = XYChart(
+        dataset.toXYSeriesCollection("f(x)"),
+        "XYLineChart Simple Example"
+      )
+      chart.saveAsPNG("simpleXYLineChart.png",
+        (600, 400))
 
     } catch {
       case ex: FileNotFoundException => println("File aprox.txt not found")
