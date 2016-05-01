@@ -1,6 +1,9 @@
 package by.bsuir.dm
 
-import java.io.FileNotFoundException
+import java.awt.image.BufferedImage
+import java.awt.{Color, Font}
+import java.io.{File, FileNotFoundException}
+import javax.imageio.ImageIO
 
 import by.bsuir.dm.aprox.Lagrange
 import by.bsuir.dm.diff.{Deriv, Integr}
@@ -72,7 +75,23 @@ object App {
       println("Input data:")
       points.foreach(point => println("(x, y) => " + point))
       println("Output data:")
-      points.foreach(point => println("(x, y) => (" + point._1 + "," + Lagrange(point._1, points) + ")"))
+      val img = new BufferedImage(400, 400, BufferedImage.TYPE_INT_ARGB)
+      (1 to 40).foreach(point => {
+        val result = Lagrange(point * 0.05, points)
+        math.abs(result) < 3 match {
+          case true => img.setRGB(point * 5 - 1, math.round(200 - result * 25).toInt, 999999)
+          case false =>
+        }
+        println("(x, y) => (" + point * 0.05 + "," + result + ")")
+      })
+      val file = new File("diff.png")
+      val g = img.createGraphics()
+      g.setColor(Color.RED)
+      g.setFont(new Font("Batang", Font.PLAIN, 20))
+      g.drawString("sss", 0, 0)
+      g.dispose()
+      ImageIO.write(img, "png", file)
+
     } catch {
       case ex: FileNotFoundException => println("File aprox.txt not found")
       case ex: IndexOutOfBoundsException => println("Illegal input data")
