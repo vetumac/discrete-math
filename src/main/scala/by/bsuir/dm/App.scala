@@ -1,6 +1,5 @@
 package by.bsuir.dm
 
-import java.awt.image.BufferedImage
 import java.io.FileNotFoundException
 
 import by.bsuir.dm.aprox.Lagrange
@@ -8,7 +7,6 @@ import by.bsuir.dm.diff.{Deriv, Integr}
 import by.bsuir.dm.equations.{Gauss, Holetsky, SystemOfLinearEquationsMatrix}
 import by.bsuir.dm.exceptions._
 
-import scalax.chart.XYChart
 import scalax.chart.module.Charting._
 
 object App {
@@ -73,26 +71,14 @@ object App {
   private def aprox() = {
     try {
       val points = IOService.getDoubleDataFromFile("aprox.txt").map(row => (row.head, row(1)))
-      println("Input data:")
+      /*println("Input data:")
       points.foreach(point => println("(x, y) => " + point))
-      println("Output data:")
-      val img = new BufferedImage(400, 400, BufferedImage.TYPE_INT_ARGB)
-      (1 to 40).foreach(point => {
-        val result = Lagrange(point * 0.05, points)
-        math.abs(result) < 3 match {
-          case true => img.setRGB(point * 5 - 1, math.round(200 - result * 25).toInt, 999999)
-          case false =>
-        }
-        println("(x, y) => (" + point * 0.05 + "," + result + ")")
-      })
-      val dataset = Seq((1, 3), (2, 1), (3, 7), (4, 9))
-      val chart = XYChart(
-        dataset.toXYSeriesCollection("f(x)"),
-        "XYLineChart Simple Example"
-      )
-      chart.saveAsPNG("simpleXYLineChart.png",
-        (600, 400))
+      println("Output data:")*/
+      val result = (20 to 200).map(number => (number.toDouble / 100, Lagrange(number.toDouble / 100, points)))
+      val data = List(("Input", points), ("Aproxitated", result))
+      val chart = XYLineChart(data, "XYLineChart Simple Example")
 
+      chart.saveAsPNG("simpleXYLineChart.png", (600, 400))
     } catch {
       case ex: FileNotFoundException => println("File aprox.txt not found")
       case ex: IndexOutOfBoundsException => println("Illegal input data")
