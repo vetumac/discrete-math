@@ -71,14 +71,11 @@ object App {
   private def aprox() = {
     try {
       val points = IOService.getDoubleDataFromFile("aprox.txt").map(row => (row.head, row(1)))
-      /*println("Input data:")
-      points.foreach(point => println("(x, y) => " + point))
-      println("Output data:")*/
-      val result = (20 to 200).map(number => (number.toDouble / 100, Lagrange(number.toDouble / 100, points)))
+      val result = (185 to 1900).map(number => (number.toDouble / 1000, Lagrange(number.toDouble / 1000, points)))
       val data = List(("Input", points), ("Aproxitated", result))
-      val chart = XYLineChart(data, "XYLineChart Simple Example")
-
-      chart.saveAsPNG("simpleXYLineChart.png", (600, 400))
+      val chart = XYLineChart.shapes(data, "Lagrange aproximate")
+      chart.saveAsPNG("lagrange.png", (800, 600))
+      println("Lagrange aproximate results in lagrange.png")
     } catch {
       case ex: FileNotFoundException => println("File aprox.txt not found")
       case ex: IndexOutOfBoundsException => println("Illegal input data")
