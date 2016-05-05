@@ -2,7 +2,7 @@ package by.bsuir.dm
 
 import java.io.FileNotFoundException
 
-import by.bsuir.dm.aprox.{CubicSpline, Lagrange}
+import by.bsuir.dm.aprox.CubicSpline
 import by.bsuir.dm.diff.{Deriv, Integr}
 import by.bsuir.dm.equations.{Gauss, Holetsky, SystemOfLinearEquationsMatrix}
 import by.bsuir.dm.exceptions._
@@ -71,9 +71,9 @@ object App {
   private def aprox() = {
     try {
       val points = IOService.getDoubleDataFromFile("aprox.txt").map(row => (row.head, row(1)))
-      val resultLagrange = (185 to 1900).map(number => (number.toDouble / 1000, Lagrange(number.toDouble / 1000, points)))
-      val resultCubicSpline = (185 to 1900).map(number => (number.toDouble / 1000, CubicSpline(number.toDouble / 1000, points)))
-      val data = List(("Input", points), ("Aproxitated Lagrange", resultLagrange), ("Aproxitated Cubic Splain", resultCubicSpline))
+      //val resultLagrange = (185 to 1900).map(number => (number.toDouble / 1000, Lagrange(number.toDouble / 1000, points)))
+      val resultCubicSpline = (-10 to 220).map(number => (number.toDouble / 100, CubicSpline(number.toDouble / 100, points)))
+      val data = List(("Input", points), /*("Aproxitated Lagrange", resultLagrange),*/ ("Aproxitated Cubic Splain", resultCubicSpline))
       val chart = XYLineChart.shapes(data, "Aproximate")
       chart.saveAsPNG("aproximate.png", (800, 600))
       println("Aproximate results in aproximate.png")
