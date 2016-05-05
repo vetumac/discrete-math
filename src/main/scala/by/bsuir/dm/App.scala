@@ -2,19 +2,23 @@ package by.bsuir.dm
 
 import java.io.FileNotFoundException
 
+import by.bsuir.dm.aprox.{CubicSpline, Lagrange}
 import by.bsuir.dm.diff.{Deriv, Integr}
 import by.bsuir.dm.equations.{Gauss, Holetsky, SystemOfLinearEquationsMatrix}
 import by.bsuir.dm.exceptions._
+
+import scalax.chart.module.Charting._
 
 object App {
   def main(args: Array[String]): Unit = {
     args(0) match {
       case "-e" => equation()
       case "-d" => diff()
+      case "-a" => aprox()
     }
   }
 
-  def equation() = {
+  private def equation() = {
     try {
       val sle = SystemOfLinearEquationsMatrix(IOService.getDoubleDataFromFile("equation.txt"))
       println("Input matrix:")
@@ -42,7 +46,7 @@ object App {
     }
   }
 
-  def diff() = {
+  private def diff() = {
     try {
       val inputData = IOService.getStringDataFromFile("diff.txt")
       println("Input data:")
@@ -60,6 +64,37 @@ object App {
     catch {
       case ex: FileNotFoundException => println("File diff.txt not found")
       case ex: IllegalArgumentException => println("Illegal input data")
+      case ex: NumberFormatException => println("Invalid number format " + ex.getMessage)
+    }
+  }
+
+  private def aprox() = {
+
+    def scale(pixel: Int, maxPixel: Int, abroad: Double, firstX: Double, lastX: Double): Double =
+      firstX - abroad * (lastX - firstX) + (1 + 2 * abroad) * (lastX - firstX) * pixel / maxPixel
+
+    try {
+      val points = IOService.getDoubleDataFromFile("aprox.txt").map(row => (row.head, row(1)))
+      val plotSize = 1000
+
+      def scaledInBoard(pixel: Int): Double = scale(pixel, plotSize, -0.1, points.head._1, points.last._1)
+      def scaledOutBoard(pixel: Int): Double = scale(pixel, plotSize, 0.1, points.head._1, points.last._1)
+
+      val resultLagrange = (0 to plotSize).map(number => (scaledInBoard(number), Lagrange(scaledInBoard(number), points)))
+      val dataLagrange = List(("Input", points), ("Aproxitated Lagrange", resultLagrange))
+      val chartLagrange = XYLineChart.shapes(dataLagrange, "Aproximate Lagrange")
+      chartLagrange saveAsPNG("lagrange.png", (plotSize, plotSize * 3 / 4))
+      println("Aproximate Lagrange results in lagrange.png")
+
+      val resultCubicSpline = (0 to plotSize).map(number => (scaledOutBoard(number), CubicSpline(scaledOutBoard(number), points)))
+      val dataCuicSpline = List(("Input", points), ("Aproxitated Cubic Splain", resultCubicSpline))
+      val chartCubicSpline = XYLineChart.shapes(dataCuicSpline, "Aproximate Cubic Splain")
+      chartCubicSpline saveAsPNG("cubic-spline.png", (plotSize, plotSize * 3 / 4))
+      println("Aproximate Cubic Splain results in cubic-spline.png")
+
+    } catch {
+      case ex: FileNotFoundException => println("File aprox.txt not found")
+      case ex: IndexOutOfBoundsException => println("Illegal input data")
       case ex: NumberFormatException => println("Invalid number format " + ex.getMessage)
     }
   }

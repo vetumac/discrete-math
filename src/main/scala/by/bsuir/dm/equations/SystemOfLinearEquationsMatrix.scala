@@ -9,15 +9,12 @@ class SystemOfLinearEquationsMatrix(mtrx: List[List[Double]]) extends AbstractMa
     case true => ;
   }
 
-  override def toString = {
-    mtrx.foldLeft("")((a, c) => a + c.foldLeft("")((aa, cc) => aa + cc + " ") + "\n")
-  }
+  override def toString = mtrx.foldLeft("")((a, c) => a + c.foldLeft("")((aa, cc) => aa + cc + " ") + "\n")
 }
 
 object SystemOfLinearEquationsMatrix {
 
   def apply(matrix: List[List[Double]]) = new SystemOfLinearEquationsMatrix(matrix)
 
-  def checkMatrix(matrix: List[List[Double]]) =
-    matrix.head.length == matrix.length + 1
+  def checkMatrix(matrix: List[List[Double]]) = matrix.head.length == matrix.length + 1
 }
