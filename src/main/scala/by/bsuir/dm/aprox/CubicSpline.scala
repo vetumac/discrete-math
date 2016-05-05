@@ -6,7 +6,7 @@ object CubicSpline {
     def binarySearch(x: Double, list: List[(Double, Double, Double, Double, Double)]): (Double, Double, Double, Double, Double) = x match {
       case (x: Double) if x < list.head._5 => list.head
       case (x: Double) if list(list.length - 2)._5 <= x => list.last
-      case (x: Double) if x < list(list.length / 2)._5 => binarySearch(x, list.dropRight(list.length / 2))
+      case (x: Double) if x < list(list.length / 2)._5 => binarySearch(x, list.dropRight(list.length - (list.length / 2 + 1)))
       case (x: Double) if list(list.length / 2)._5 <= x => binarySearch(x, list.drop(1 + list.length / 2))
     }
 
