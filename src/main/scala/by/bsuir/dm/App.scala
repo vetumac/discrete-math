@@ -77,16 +77,18 @@ object App {
       val points = IOService.getDoubleDataFromFile("aprox.txt").map(row => (row.head, row(1)))
       val plotSize = 1000
 
-      def scaledInBoard(pixel: Int): Double = scale(pixel, plotSize, -0.1, points.head._1, points.last._1)
-      def scaledOutBoard(pixel: Int): Double = scale(pixel, plotSize, 0.1, points.head._1, points.last._1)
+      val scaledInBoard = scale(_: Int, plotSize, -0.1, points.head._1, points.last._1)
+      val scaledOutBoard = scale(_: Int, plotSize, 0.1, points.head._1, points.last._1)
 
-      val resultLagrange = (0 to plotSize).map(number => (scaledInBoard(number), Lagrange(scaledInBoard(number), points)))
+      val lagrange = Lagrange(_: Double, points)
+      val resultLagrange = (0 to plotSize).map(number => (scaledInBoard(number), lagrange(scaledInBoard(number))))
       val dataLagrange = List(("Input", points), ("Aproxitated Lagrange", resultLagrange))
       val chartLagrange = XYLineChart.shapes(dataLagrange, "Aproximate Lagrange")
       chartLagrange saveAsPNG("lagrange.png", (plotSize, plotSize * 3 / 4))
       println("Aproximate Lagrange results in lagrange.png")
 
-      val resultCubicSpline = (0 to plotSize).map(number => (scaledOutBoard(number), CubicSpline(scaledOutBoard(number), points)))
+      val cubicSpline = CubicSpline(_: Double, points)
+      val resultCubicSpline = (0 to plotSize).map(number => (scaledOutBoard(number), cubicSpline(scaledOutBoard(number))))
       val dataCuicSpline = List(("Input", points), ("Aproxitated Cubic Splain", resultCubicSpline))
       val chartCubicSpline = XYLineChart.shapes(dataCuicSpline, "Aproximate Cubic Splain")
       chartCubicSpline saveAsPNG("cubic-spline.png", (plotSize, plotSize * 3 / 4))
